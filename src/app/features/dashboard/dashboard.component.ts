@@ -1,7 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { DashboardService } from './dashboard.service';
-import { Observable } from 'rxjs';
-import { UserDetails } from '../../shared/modals/user-detail.interface';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { CardComponent } from '../../shared/components/card/card.component';
 
@@ -16,14 +14,22 @@ export class DashboardComponent implements OnInit {
   userService = inject(DashboardService);
   users?: any;
   ngOnInit(): void {
-    if (JSON.parse(localStorage.getItem('Users') || '') !== '') {
+    if (this.getUserFromLocalStorage() !== null) {
       this.users = localStorage.getItem('Users');
       this.users = JSON.parse(this.users);
     } else {
       this.userService.getUserData().subscribe(() => {
-        this.users = localStorage.getItem('Users');
+        this.users = localStorage.getItem('Users'); 
         this.users = JSON.parse(this.users);
       });
     }
   }
+
+  getUserFromLocalStorage = () => {
+    try {
+      return JSON.parse(localStorage.getItem('Users') || '');
+    } catch (error) {
+      return null;
+    }
+  };
 }
