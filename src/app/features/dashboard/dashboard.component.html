@@ -1,0 +1,12 @@
+<header>
+    <app-header></app-header>
+
+</header>
+
+<main>
+    @for(user of users; track user.id){
+        <app-card [user]="user"></app-card>
+    }
+    
+</main>
+
