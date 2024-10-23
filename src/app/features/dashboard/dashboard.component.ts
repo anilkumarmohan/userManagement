@@ -23,6 +23,11 @@ export class DashboardComponent implements OnInit {
         this.users = JSON.parse(this.users);
       });
     }
+
+    this.userService.users$.subscribe(user => {
+      this.users = localStorage.getItem('Users');
+      this.users = JSON.parse(this.users);
+    })
   }
 
   getUserFromLocalStorage = () => {
@@ -32,4 +37,6 @@ export class DashboardComponent implements OnInit {
       return null;
     }
   };
+
+ 
 }

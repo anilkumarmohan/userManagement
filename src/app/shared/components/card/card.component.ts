@@ -10,6 +10,7 @@ import {
 import { UserDetails } from '../../modals/user-detail.interface';
 import { Router } from '@angular/router';
 import { JsonPipe } from '@angular/common';
+import { DashboardService } from '../../../features/dashboard/dashboard.service';
 
 @Component({
   selector: 'app-card',
@@ -20,6 +21,7 @@ import { JsonPipe } from '@angular/common';
 })
 export class CardComponent {
   user = input.required<UserDetails>();
+  userService =inject(DashboardService);
   router = inject(Router);
   address = computed(() => {
     return `${this.user()?.address?.street} , ${
@@ -44,6 +46,8 @@ export class CardComponent {
     );
     console.log(updatedUsers);
     localStorage.setItem('Users', JSON.stringify(updatedUsers));
-    this.router.navigate(['dashboard']);
+    // this.user.set(updatedUsers);
+    // this.router.navigate(['dashboard']);
+    this.userService.users$.next('');
   }
 }

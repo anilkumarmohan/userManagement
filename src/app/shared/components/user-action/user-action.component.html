@@ -1,4 +1,4 @@
-<form>
+<form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
   <div class="form-group">
     <label for="uname">UserName</label>
     <input
@@ -8,13 +8,13 @@
       name="uname"
       placeholder="UserName"
       [(ngModel)] = "currentUser.username"
-      
+      required
     />
   </div>
   <div class="form-group">
     <label for="name">Name</label>
     <input type="text" class="form-control" id="name" name="name" placeholder="Name"
-    [(ngModel)] = "currentUser.name" />
+    [(ngModel)] = "currentUser.name" required/>
   </div>
   <div class="form-group">
     <label for="email">Email</label>
@@ -24,8 +24,14 @@
       id="email"
       name="email"
       placeholder="Email"
-      [(ngModel)] = "currentUser.email" />
+      [(ngModel)] = "currentUser.email" 
+      required
+      email
+      />
   </div>
-  <button type="submit" class="btn btn-primary" (click) = "OnCancel()">Cancel</button> |
-  <button type="submit" class="btn btn-primary" (click) = "currentUser.id ? onEdit() : onAdd()">{{currentUser.id ? 'Update' : 'Add'}}</button>
+  @if(userForm.touched && userForm.invalid){
+    <p>Invalid form</p>
+  }
+  <button type="button" class="btn btn-primary" (click) = "OnCancel()">Cancel</button> |
+  <button type="submit" class="btn btn-primary">{{currentUser.id ? 'Update' : 'Add'}}</button>
 </form>

@@ -13,31 +13,39 @@ import { Router } from '@angular/router';
 export class UserActionComponent {
   // currentUser = input.required<UserDetails>();
   router = inject(Router);
-  @Input() currentUser: UserDetails = {}
+  @Input() currentUser: UserDetails = {};
 
   onEdit() {
     console.log(this.currentUser);
     let users = JSON.parse(localStorage.getItem('Users') || '');
     let updatedUsers = users.map((user: any) =>
-      user.id == this.currentUser.id
-        ? { ...user, ...this.currentUser }
-        : user
+      user.id == this.currentUser.id ? { ...user, ...this.currentUser } : user
     );
     localStorage.setItem('Users', JSON.stringify(updatedUsers));
     this.router.navigate(['dashboard']);
   }
 
-  onAdd(){
-    console.log(this.currentUser);
-    this.currentUser.id = Math.random();
-    // this.currentUser.update(currentUser => currentUser.id = Math.random());
-    // console.log(this.currentUser);
-    let updatedUsers = JSON.parse(localStorage.getItem('Users') || '');
-    updatedUsers.push(this.currentUser);
-    localStorage.setItem('Users', JSON.stringify(updatedUsers));
+  // onAdd() {
+  //   console.log(this.currentUser);
+  //   this.currentUser.id = Math.random();
+  //   // this.currentUser.update(currentUser => currentUser.id = Math.random());
+  //   // console.log(this.currentUser);
+  //   let updatedUsers = JSON.parse(localStorage.getItem('Users') || '');
+  //   updatedUsers.push(this.currentUser);
+  //   localStorage.setItem('Users', JSON.stringify(updatedUsers));
+  //   this.router.navigate(['dashboard']);
+  // }
+  OnCancel() {
     this.router.navigate(['dashboard']);
   }
-  OnCancel(){
-    this.router.navigate(['dashboard']);
+
+  onSubmit(userForm: any) {
+    if (userForm.valid) {
+      this.currentUser.id = Math.random();
+      let updatedUsers = JSON.parse(localStorage.getItem('Users') || '');
+      updatedUsers.push(this.currentUser);
+      localStorage.setItem('Users', JSON.stringify(updatedUsers));
+      this.router.navigate(['dashboard']);
+    }
   }
 }

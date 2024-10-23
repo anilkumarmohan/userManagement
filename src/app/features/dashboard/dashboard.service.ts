@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { UserDetails } from '../../shared/modals/user-detail.interface';
 
@@ -9,6 +9,7 @@ import { UserDetails } from '../../shared/modals/user-detail.interface';
 })
 export class DashboardService {
   http = inject(HttpClient);
+  users$ = new Subject();
   constructor() {}
 
   getUserData() {

@@ -4,9 +4,12 @@
 </header>
 
 <main>
-    @for(user of users; track user.id){
-        <app-card [user]="user"></app-card>
-    }
+    <div class="card-container">
+        @for(user of users; track user.id){
+            <app-card [user]="user"></app-card>
+        }
+    </div>
+    
     
 </main>
 
