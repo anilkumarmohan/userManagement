@@ -39,13 +39,24 @@ export class UserActionComponent {
     this.router.navigate(['dashboard']);
   }
 
-  onSubmit(userForm: any) {
-    if (userForm.valid) {
-      this.currentUser.id = Math.random();
-      let updatedUsers = JSON.parse(localStorage.getItem('Users') || '');
-      updatedUsers.push(this.currentUser);
+  onSubmit(userForm: any, currentUserID: any) {
+    console.log(currentUserID);
+    if(!currentUserID){
+      if (userForm.valid) {
+        this.currentUser.id = Math.random();
+        let updatedUsers = JSON.parse(localStorage.getItem('Users') || '');
+        updatedUsers.push(this.currentUser);
+        localStorage.setItem('Users', JSON.stringify(updatedUsers));
+        this.router.navigate(['dashboard']);
+      }
+    } else {
+      let users = JSON.parse(localStorage.getItem('Users') || '');
+      let updatedUsers = users.map((user: any) =>
+        user.id == this.currentUser.id ? { ...user, ...this.currentUser } : user
+      );
       localStorage.setItem('Users', JSON.stringify(updatedUsers));
       this.router.navigate(['dashboard']);
     }
+    
   }
 }

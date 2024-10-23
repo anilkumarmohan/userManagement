@@ -1,4 +1,4 @@
-<form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+<form #userForm="ngForm" (ngSubmit)="onSubmit(userForm, currentUser.id)">
   <div class="form-group">
     <label for="uname">UserName</label>
     <input
