@@ -39,15 +39,15 @@ export class CardComponent {
   }
 
   onDeleteUser() {
-    
+    if(!window.confirm("Are you sure to delete?")){
+      return
+    }
     let currentUsers = JSON.parse(localStorage.getItem('Users') || '');
-    let updatedUsers = currentUsers.filter(
-      (current: any) => current.id !== this.user().id
-    );
-    console.log(updatedUsers);
-    localStorage.setItem('Users', JSON.stringify(updatedUsers));
-    // this.user.set(updatedUsers);
-    // this.router.navigate(['dashboard']);
-    this.userService.users$.next('');
+      let updatedUsers = currentUsers.filter(
+        (current: any) => current.id !== this.user().id
+      );
+      console.log(updatedUsers);
+      localStorage.setItem('Users', JSON.stringify(updatedUsers));
+      this.userService.users$.next('');
   }
 }

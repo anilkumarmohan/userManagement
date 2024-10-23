@@ -1,37 +1,87 @@
-<form #userForm="ngForm" (ngSubmit)="onSubmit(userForm, currentUser.id)">
+<form [formGroup]="userForm" (ngSubmit)="onSubmit(currentUser.id)">
   <div class="form-group">
-    <label for="uname">UserName</label>
-    <input
-    type="text"
-      class="form-control"
-      id="uname"
-      name="uname"
-      placeholder="UserName"
-      [(ngModel)] = "currentUser.username"
-      required
-    />
-  </div>
-  <div class="form-group">
-    <label for="name">Name</label>
-    <input type="text" class="form-control" id="name" name="name" placeholder="Name"
-    [(ngModel)] = "currentUser.name" required/>
-  </div>
-  <div class="form-group">
-    <label for="email">Email</label>
+    <label for="uname" class="mt-2">UserName</label>
     <input
       type="text"
       class="form-control"
-      id="email"
-      name="email"
-      placeholder="Email"
-      [(ngModel)] = "currentUser.email" 
-      required
-      email
-      />
+      id="uname"
+      placeholder="UserName"
+      formControlName="username"
+    />
   </div>
-  @if(userForm.touched && userForm.invalid){
-    <p>Invalid form</p>
-  }
-  <button type="button" class="btn btn-primary" (click) = "OnCancel()">Cancel</button> |
-  <button type="submit" class="btn btn-primary">{{currentUser.id ? 'Update' : 'Add'}}</button>
+  <div class="form-group">
+    <label for="name" class="mt-2">Name</label>
+    <input
+      type="text"
+      id="name"
+      class="form-control"
+      placeholder="Name"
+      formControlName="name"
+    />
+  </div>
+  <div class="form-group">
+    <label for="email" class="mt-2">Email</label>
+    <input
+      type="text"
+      id="email"
+      class="form-control"
+      placeholder="Email"
+      formControlName="email"
+    />
+  </div>
+  <div formGroupName="address">
+    <div class="form-group">
+      <label for="street" class="mt-2">Street</label>
+      <input
+        type="text"
+        id="street"
+        class="form-control"
+        placeholder="Street"
+        formControlName="street"
+      />
+    </div>
+    <div class="form-group">
+      <label for="suite" class="mt-2">Suite</label>
+      <input
+        type="text"
+        id="suite"
+        class="form-control"
+        placeholder="Suite"
+        formControlName="suite"
+      />
+    </div>
+    <div class="form-group">
+      <label for="city" class="mt-2">City</label>
+      <input
+        type="text"
+        id="city"
+        class="form-control"
+        placeholder="City"
+        formControlName="city"
+      />
+    </div>
+    <div class="form-group">
+      <label for="zipcode" class="mt-2">Zipcode</label>
+      <input
+        type="text"
+        id="zipcode"
+        class="form-control"
+        placeholder="Zipcode"
+        formControlName="zipcode"
+      />
+    </div>
+  </div>
+  <!-- @if(userForm.touched && userForm.invalid){
+  <p>Invalid form</p>
+  } -->
+  <div class="mt-4 d-flex justify-content-end">
+    <button type="button" class="btn btn-primary" (click)="OnCancel()">
+      Cancel
+    </button>
+    |
+    <button type="submit" [disabled]="userForm.invalid" class="btn btn-primary">
+      {{ currentUser.id ? "Update" : "Add" }}
+    </button>
+  </div>
+  
 </form>
